@@ -1,0 +1,23 @@
+{
+  "name": "football-team-management-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Football Team Management System",
+  "main": "FootballServer.js",
+  "scripts": {
+    "start": "node FootballServer.js",
+    "dev": "nodemon FootballServer.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniyal Areeb",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "keywords": ["football", "team-management", "api", "express", "mongodb"]
+}
