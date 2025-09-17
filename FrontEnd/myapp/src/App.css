@@ -4,8 +4,10 @@
 }
 
 body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #667eea 50%, #764ba2 75%, #8e44ad 100%);
   background-attachment: fixed;
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   margin: 0;
   padding: 0;
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -66,23 +68,27 @@ h3 {
 }
 
 @keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Modern Navigation Bar */
 .navbar {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: rgba(30, 60, 114, 0.2);
+  backdrop-filter: blur(25px);
   padding: 1.5rem 2rem;
   display: flex;
   justify-content: center;
   gap: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
+  border-radius: 0 0 25px 25px;
 }
 
 .navbar a {
@@ -92,14 +98,15 @@ h3 {
   text-decoration: none;
   padding: 14px 24px;
   border-radius: 50px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .navbar a::before {
@@ -119,7 +126,7 @@ h3 {
 
 .navbar a:hover {
   transform: translateY(-3px) scale(1.05);
-  background: rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
   border-color: rgba(255, 255, 255, 0.4);
 }
@@ -129,7 +136,7 @@ h3 {
 }
 
 .navbar a.active {
-  background: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(78, 205, 196, 0.3));
   border-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
@@ -147,12 +154,12 @@ h3 {
 .form-container {
   max-width: 900px;
   margin: 40px auto;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.15), rgba(42, 82, 152, 0.15));
+  backdrop-filter: blur(25px);
   padding: 50px;
   border-radius: 30px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -163,8 +170,10 @@ h3 {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1);
+  height: 5px;
+  background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #667eea, #764ba2);
+  background-size: 300% 100%;
+  animation: gradientShift 8s ease infinite;
 }
 
 form {
@@ -190,14 +199,15 @@ form {
 
 form input {
   padding: 18px 25px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(102, 126, 234, 0.3);
   border-radius: 15px;
   font-size: 16px;
   color: white;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.1), rgba(42, 82, 152, 0.1));
+  backdrop-filter: blur(15px);
   transition: all 0.3s ease;
   font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 form input::placeholder {
@@ -207,8 +217,8 @@ form input::placeholder {
 form input:focus {
   border-color: #4ECDC4;
   outline: none;
-  box-shadow: 0 0 25px rgba(78, 205, 196, 0.4);
-  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 30px rgba(78, 205, 196, 0.5), 0 8px 25px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.2), rgba(42, 82, 152, 0.2));
   transform: translateY(-2px);
 }
 
@@ -234,7 +244,7 @@ form input:focus {
 
 /* Modern Buttons */
 button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8e44ad 100%);
   border: none;
   padding: 18px 35px;
   border-radius: 50px;
@@ -249,6 +259,7 @@ button {
   font-family: 'Inter', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 button::before {
@@ -269,6 +280,7 @@ button:hover::before {
 button:hover {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 50%, #667eea 100%);
 }
 
 button:active {
@@ -298,16 +310,28 @@ button:disabled {
 
 /* Modern Table Styles */
 .top-teams {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.15), rgba(42, 82, 152, 0.15));
+  backdrop-filter: blur(25px);
   padding: 40px;
   border-radius: 25px;
   margin-top: 40px;
   overflow: auto;
   max-width: 100%;
   max-height: 600px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.top-teams::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #667eea);
+  border-radius: 25px 25px 0 0;
 }
 
 .top-teams table {
@@ -324,7 +348,7 @@ button:disabled {
 }
 
 .top-teams th {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #8e44ad 100%);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -332,6 +356,7 @@ button:disabled {
   top: 0;
   z-index: 10;
   font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .top-teams td {
@@ -421,14 +446,14 @@ button:disabled {
 
 /* Modern Scoreboard */
 .scoreboard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.15), rgba(42, 82, 152, 0.15));
+  backdrop-filter: blur(25px);
   padding: 50px;
   border-radius: 25px;
   margin-top: 40px;
   margin-bottom: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -439,8 +464,10 @@ button:disabled {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1);
+  height: 5px;
+  background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #667eea, #764ba2);
+  background-size: 300% 100%;
+  animation: gradientShift 8s ease infinite;
 }
 
 .stats-grid {
@@ -451,15 +478,16 @@ button:disabled {
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.2), rgba(42, 82, 152, 0.2));
+  backdrop-filter: blur(15px);
   padding: 30px;
   border-radius: 20px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card::before {
@@ -468,8 +496,8 @@ button:disabled {
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+  height: 4px;
+  background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1);
 }
 
 .stat-card:hover {
