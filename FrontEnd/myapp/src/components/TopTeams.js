@@ -1,35 +1,72 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { toast } from 'react-toastify';
+import { teamAPI } from '../services/api';
+import { useApi } from '../hooks/useApi';
 
 const TopTeams = () => {
   const [wins, setWins] = useState('');
-  const [teams, setTeams] = useState([]);
+  const { data: teamsData, loading, error, execute } = useApi(teamAPI.getTopTeams);
 
-  const fetchTopTeams = () => {
-    axios.get(`http://localhost:5000/topteams/${wins}`) // Use backticks for template literals
-      .then(response => setTeams(response.data))
-      .catch(error => alert(error.response?.data?.error || 'Failed to fetch teams'));
+  const fetchTopTeams = async () => {
+    if (!wins || wins < 0) {
+      toast.error('Please enter a valid number of wins');
+      return;
+    }
+
+    try {
+      await execute(wins);
+      toast.success('Top teams loaded successfully!');
+    } catch (err) {
+      toast.error(error || 'Failed to fetch top teams');
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      fetchTopTeams();
+    }
   };
 
   return (
     <div className="form-container">
-      <h1>Top 10 Teams</h1>
-      <input
-        type="number"
-        name="Wins"
-        placeholder="Enter Minimum Wins"
-        value={wins}
-        onChange={(e) => setWins(e.target.value)}
-      />
-      <button onClick={fetchTopTeams}>Get Top 10</button>
+      <h1>🏆 Top Teams</h1>
+      
+      <div className="input-group">
+        <label htmlFor="wins">Minimum Wins:</label>
+        <input
+          id="wins"
+          type="number"
+          name="Wins"
+          placeholder="Enter minimum wins (e.g., 10)"
+          value={wins}
+          onChange={(e) => setWins(e.target.value)}
+          onKeyPress={handleKeyPress}
+          min="0"
+        />
+        <button 
+          onClick={fetchTopTeams} 
+          disabled={loading || !wins}
+          className="fetch-btn"
+        >
+          {loading ? '⏳ Loading...' : '🏆 Get Top Teams'}
+        </button>
+      </div>
 
-      {teams.length > 0 && (
+      {error && (
+        <div className="error-message">
+          ❌ {error}
+        </div>
+      )}
+
+      {teamsData && teamsData.data && teamsData.data.length > 0 && (
         <div className="top-teams">
+          <h2>🏆 Top {teamsData.count} Teams (Min. {teamsData.minWins} wins)</h2>
           <table>
             <thead>
               <tr>
+                <th>Rank</th>
                 <th>Team</th>
-                <th>Games Played</th>
+                <th>Games</th>
                 <th>Wins</th>
                 <th>Draws</th>
                 <th>Losses</th>
@@ -40,21 +77,33 @@ const TopTeams = () => {
               </tr>
             </thead>
             <tbody>
-              {teams.map((team, index) => (
+              {teamsData.data.map((team, index) => (
                 <tr key={index}>
-                  <td>{team.Team}</td>
+                  <td>
+                    <span className="rank-badge">
+                      {index + 1}
+                    </span>
+                  </td>
+                  <td className="team-name">{team.Team}</td>
                   <td>{team['Games Played']}</td>
-                  <td>{team.Win}</td>
-                  <td>{team.Draw}</td>
-                  <td>{team.Loss}</td>
-                  <td>{team['Goals For']}</td>
-                  <td>{team['Goals Against']}</td>
-                  <td>{team.Points}</td>
+                  <td className="wins">{team.Win}</td>
+                  <td className="draws">{team.Draw}</td>
+                  <td className="losses">{team.Loss}</td>
+                  <td className="goals-for">{team['Goals For']}</td>
+                  <td className="goals-against">{team['Goals Against']}</td>
+                  <td className="points">{team.Points}</td>
                   <td>{team.Year}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {teamsData && teamsData.data && teamsData.data.length === 0 && (
+        <div className="no-data">
+          <h3>📭 No teams found</h3>
+          <p>No teams found with {wins} or more wins.</p>
         </div>
       )}
     </div>
