@@ -3,13 +3,12 @@ const mongoose = require('mongoose');
 // MongoDB connection configuration
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/Footballdb';
 
+console.log('🔍 MongoDB URI:', MONGODB_URI ? 'Set' : 'Not set');
+
 // Connect to MongoDB with improved options
 const connectDB = async () => {
   try {
-    await mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(MONGODB_URI);
     
     console.log(`✅ Connected to Football Database: ${MONGODB_URI}`);
   } catch (error) {
